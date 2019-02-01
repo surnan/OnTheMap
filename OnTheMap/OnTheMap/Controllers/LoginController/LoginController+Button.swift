@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 extension LoginController{
     
@@ -28,5 +29,10 @@ extension LoginController{
                 self.present(alertController, animated: true)
             }
         }
+    }
+    
+    
+    @objc func handleFacebookButton(_ sender: UIButton){
+        
     }
 }

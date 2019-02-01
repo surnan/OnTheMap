@@ -28,6 +28,14 @@ class LoginController: UIViewController {
         return button
     }()
     
+    var facebookButton: UIButton = {
+        var button = UIButton()
+        button.backgroundColor = UIColor.darkBlue
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("FACEBOOK", for: .normal)
+        return button
+    }()
+    
     var loginStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -41,8 +49,8 @@ class LoginController: UIViewController {
         emailTextField.text = "4suresh@gmail.com"
         passwordTextField.text = "atDZ8=Gm%=VU"
         
-        [emailTextField, passwordTextField, loginButton].forEach{loginStack.addArrangedSubview($0)}
-        [emailTextField, passwordTextField, loginButton].forEach{$0.heightAnchor.constraint(equalToConstant: customFontSize * 2)}
+        [emailTextField, passwordTextField, loginButton, facebookButton].forEach{loginStack.addArrangedSubview($0)}
+//        [emailTextField, passwordTextField, loginButton, facebookButton].forEach{$0.heightAnchor.constraint(equalToConstant: customFontSize * 2)}
         
         view.addSubview(loginStack)
         NSLayoutConstraint.activate([
@@ -51,6 +59,7 @@ class LoginController: UIViewController {
             loginStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             ])
         loginButton.addTarget(self, action: #selector(handleLoginButton(_:)), for: .touchUpInside)
+        facebookButton.addTarget(self, action: #selector(handleFacebookButton(_:)), for: .touchUpInside)
     }
     
     func handleTaskForGetResponse(completion: AllStudents?, error: Error?){
