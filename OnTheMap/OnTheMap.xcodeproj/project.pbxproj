@@ -17,6 +17,10 @@
 		848C34742203A9120088AA2B /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C34732203A9120088AA2B /* ParseClient.swift */; };
 		848C34772203AF7C0088AA2B /* StudentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C34762203AF7C0088AA2B /* StudentInfo.swift */; };
 		848C34792203C8FE0088AA2B /* AllStudents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C34782203C8FE0088AA2B /* AllStudents.swift */; };
+		848C347C2203FB790088AA2B /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C347B2203FB790088AA2B /* UdacityClient.swift */; };
+		848C347E22040E760088AA2B /* UdacityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C347D22040E760088AA2B /* UdacityRequest.swift */; };
+		848C3480220429A70088AA2B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C347F220429A70088AA2B /* MainTabBarController.swift */; };
+		848C348522049C420088AA2B /* UdacityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C348422049C420088AA2B /* UdacityResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		848C34732203A9120088AA2B /* ParseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		848C34762203AF7C0088AA2B /* StudentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInfo.swift; sourceTree = "<group>"; };
 		848C34782203C8FE0088AA2B /* AllStudents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllStudents.swift; sourceTree = "<group>"; };
+		848C347B2203FB790088AA2B /* UdacityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
+		848C347D22040E760088AA2B /* UdacityRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdacityRequest.swift; sourceTree = "<group>"; };
+		848C347F220429A70088AA2B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		848C348422049C420088AA2B /* UdacityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdacityResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +72,7 @@
 		848C345622034A4F0088AA2B /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				848C348122048EE90088AA2B /* Helpers */,
 				848C346B22035C740088AA2B /* Views */,
 				848C346A22035C6C0088AA2B /* Model */,
 				848C346922035C4E0088AA2B /* Controllers */,
@@ -77,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				848C345922034A4F0088AA2B /* LoginController.swift */,
+				848C347F220429A70088AA2B /* MainTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -84,6 +94,7 @@
 		848C346A22035C6C0088AA2B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				848C347A2203FB5F0088AA2B /* Udacity */,
 				848C34752203ABFE0088AA2B /* Parse Client */,
 			);
 			path = Model;
@@ -117,6 +128,23 @@
 				848C34782203C8FE0088AA2B /* AllStudents.swift */,
 			);
 			path = "Parse Client";
+			sourceTree = "<group>";
+		};
+		848C347A2203FB5F0088AA2B /* Udacity */ = {
+			isa = PBXGroup;
+			children = (
+				848C347B2203FB790088AA2B /* UdacityClient.swift */,
+				848C347D22040E760088AA2B /* UdacityRequest.swift */,
+				848C348422049C420088AA2B /* UdacityResponse.swift */,
+			);
+			path = Udacity;
+			sourceTree = "<group>";
+		};
+		848C348122048EE90088AA2B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,12 +218,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848C347C2203FB790088AA2B /* UdacityClient.swift in Sources */,
 				848C34772203AF7C0088AA2B /* StudentInfo.swift in Sources */,
+				848C3480220429A70088AA2B /* MainTabBarController.swift in Sources */,
 				848C34742203A9120088AA2B /* ParseClient.swift in Sources */,
 				848C346E22035D2A0088AA2B /* UIColor+Extension.swift in Sources */,
 				848C347222038B2C0088AA2B /* UIView+Constraints.swift in Sources */,
+				848C348522049C420088AA2B /* UdacityResponse.swift in Sources */,
 				848C34792203C8FE0088AA2B /* AllStudents.swift in Sources */,
 				848C345A22034A4F0088AA2B /* LoginController.swift in Sources */,
+				848C347E22040E760088AA2B /* UdacityRequest.swift in Sources */,
 				848C345822034A4F0088AA2B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
