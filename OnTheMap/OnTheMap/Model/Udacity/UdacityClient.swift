@@ -12,7 +12,7 @@ class UdacityClient {
     struct UserInfo {
         static var username = ""
         static var password = ""
-        static var accountRegistered = ""
+        static var accountRegistered = false
         static var accountKey = ""
         static var sessionId = ""
         static var sessionExpiration = ""
@@ -37,156 +37,76 @@ class UdacityClient {
         }
     }
     
-    
-    class func authenticateSession(name: String, password: String, completion: @escaping (Bool)-> Void){
-        
+    class func postRequest<WillEncode: Encodable, Decoder: Decodable>(url: URL, encodable: WillEncode, decoder : Decoder.Type,
+                                                                      completion: @escaping (Decoder?, Error?)-> Void){
         var request = URLRequest(url: Endpoints.postingSession.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-     
-        let body = UdacityRequest(udacity: Credentials(username: name, password: password))
-        request.httpBody = try! JSONEncoder().encode(body)
-        
+        request.httpBody = try! JSONEncoder().encode(encodable)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
-                //Error returned on login error if all URL info is good
-                completion(false)
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
                 return
             }
             
-            guard let data = data else {return}
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
             
-            print(String(data: data, encoding: .utf8)!)
             let range = (5..<data.count)
             let newData = data.subdata(in: range)
-            print(String(data: newData, encoding: .utf8)!)
+            //  print(String(data: newData, encoding: .utf8)!)
             
             do {
-                let dataObject = try JSONDecoder().decode(UdacityResponse.self, from: newData)
+                let dataObject = try JSONDecoder().decode(decoder.self, from: newData)
                 print(dataObject)
-                completion(true)
+                DispatchQueue.main.async {
+                    completion(dataObject, nil)
+                }
                 return
             } catch let decodeErr {
                 print("Unable to decode\n\(decodeErr)")
-                completion(false)
+                DispatchQueue.main.async {
+                    completion(nil, decodeErr)
+                }
                 return
             }
-        }.resume()
-    }
-        
-    
-    
-    
-    
-    
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-class UdacityClient {
-
-    
-    struct UserInfo {
-        static var userId = ""
-        static var accountKey = ""
-        static var sessionId = ""
+            }.resume()
     }
     
-    enum Endpoints {
-        static let base = "https://onthemap-api.udacity.com/v1"
-        case postingSession
-        case deletingSession
-        case onTheMapUserData
+    
+    class func authenticateSession(name: String, password: String, completion: @escaping (Error?)-> Void){
+        let url = Endpoints.postingSession.url
+        let userCredentials = UdacityRequest(udacity: Credentials(username: name, password: password))
         
-        var toString: String {
-            switch self {
-            case .postingSession: return Endpoints.base + "/session"
-            case .deletingSession: return Endpoints.base + "/session"
-            case .onTheMapUserData: return Endpoints.base + "/users/" + UserInfo.userId
+        postRequest(url: url, encodable: userCredentials, decoder: UdacityResponse.self) {(data, err) in
+            if err != nil {
+                completion(err)
+                return
             }
-        }
-        
-        var url: URL {
-            return URL(string: self.toString)!
-        }
-    }
-    
-    class func authenticateSession(name: String, password: String, completion: @escaping(Bool, Error?)-> Void){
-        var request = URLRequest(url: UdacityClient.Endpoints.postingSession.url)
-        
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        
-//        let testCred = UdacityLogin(udacity: Credentials(username: "4suresh@gmail.com", password: "atDZ8=Gm%=VU"))
-        let userCredentialsForUdacity = UdacityRequest(udacity: Credentials(username: name, password: password))
-        
-        do {
-            let body = try JSONEncoder().encode(userCredentialsForUdacity)
-            request.httpBody = body
-        } catch let encodingError{
-            print("Unable to encode 'userCredentialsForUdacity -->\(userCredentialsForUdacity)\n\(encodingError)")
-            completion(false, encodingError)
+            guard let dataObject = data else {return}
+            UserInfo.username = name
+            UserInfo.password = password
+            UserInfo.accountRegistered = dataObject.account.registered
+            UserInfo.accountKey = dataObject.account.key
+            UserInfo.sessionId = dataObject.session.id
+            UserInfo.sessionExpiration = dataObject.session.expiration
+            completion(nil)
             return
         }
-        
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error...
-                print("Error response from URLSession(request)-->\(request)\n\(String(describing: error))")
-                completion(false, error)
-                return
-            }
-            
-            guard let dataObject = data else {
-                print("Unable to decode URLSession data")
-                print(String(data: data ?? Data("".utf8), encoding: .utf8)!)
-                completion(false, error)
-                return
-            }
-            
-            print(String(data: dataObject, encoding: .utf8)!)
-            
-            do{
-                let temp = try JSONDecoder().decode(UdacityResponse.self, from: dataObject)
-                UserInfo.userId = temp.account.key
-                UserInfo.userId = temp.session.id
-                completion(true, nil)
-                return
-            } catch let decodeErr{
-                print("Unable to decode data \(decodeErr)")
-                completion(false, decodeErr)
-                false
-            }
-
-
-        }
-        task.resume()
     }
 }
 
-
-
+/*
 //    var PostingSession = "https://onthemap-api.udacity.com/v1/session"
 //    var deletingSession = "https://onthemap-api.udacity.com/v1/session"
 //    var onTheMapUserData = "https://onthemap-api.udacity.com/v1/users/<user_id>"
-
 */
+

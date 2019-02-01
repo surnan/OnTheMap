@@ -21,6 +21,7 @@
 		848C347E22040E760088AA2B /* UdacityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C347D22040E760088AA2B /* UdacityRequest.swift */; };
 		848C3480220429A70088AA2B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C347F220429A70088AA2B /* MainTabBarController.swift */; };
 		848C348522049C420088AA2B /* UdacityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C348422049C420088AA2B /* UdacityResponse.swift */; };
+		848C34882204C2A70088AA2B /* LoginController+Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C34872204C2A70088AA2B /* LoginController+Button.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		848C347D22040E760088AA2B /* UdacityRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdacityRequest.swift; sourceTree = "<group>"; };
 		848C347F220429A70088AA2B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		848C348422049C420088AA2B /* UdacityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UdacityResponse.swift; sourceTree = "<group>"; };
+		848C34872204C2A70088AA2B /* LoginController+Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+Button.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +87,7 @@
 		848C346922035C4E0088AA2B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				848C345922034A4F0088AA2B /* LoginController.swift */,
+				848C34862204C28D0088AA2B /* LoginController */,
 				848C347F220429A70088AA2B /* MainTabBarController.swift */,
 			);
 			path = Controllers;
@@ -145,6 +147,15 @@
 			children = (
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		848C34862204C28D0088AA2B /* LoginController */ = {
+			isa = PBXGroup;
+			children = (
+				848C345922034A4F0088AA2B /* LoginController.swift */,
+				848C34872204C2A70088AA2B /* LoginController+Button.swift */,
+			);
+			path = LoginController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				848C347C2203FB790088AA2B /* UdacityClient.swift in Sources */,
+				848C34882204C2A70088AA2B /* LoginController+Button.swift in Sources */,
 				848C34772203AF7C0088AA2B /* StudentInfo.swift in Sources */,
 				848C3480220429A70088AA2B /* MainTabBarController.swift in Sources */,
 				848C34742203A9120088AA2B /* ParseClient.swift in Sources */,
