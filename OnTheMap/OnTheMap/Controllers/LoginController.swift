@@ -44,39 +44,38 @@ class LoginController: UIViewController {
             stack.translatesAutoresizingMaskIntoConstraints = false
             return stack
         }()
-        
+
         [emailTextField, passwordTextField, loginButton].forEach{loginStack.addArrangedSubview($0)}
+        [emailTextField, passwordTextField, loginButton].forEach{$0.heightAnchor.constraint(equalToConstant: customFontSize * 2)}
         
         view.addSubview(loginStack)
-        [emailTextField, passwordTextField, loginButton].forEach{$0.heightAnchor.constraint(equalToConstant: customFontSize*2)}
-        
         NSLayoutConstraint.activate([
             loginStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             loginStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             loginStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             ])
+        
+        ParseClient.getAllStudents(completion: handleTaskForGetResponse(completion:error:))
+    }
+    
+    func handleTaskForGetResponse(completion: AllStudents?, error: Error?){
+     
+        guard let allStudents = completion else {return}
+        
+        print("+++++++++++++++++++++++++")
+        print(allStudents.results)
+        print("+++++++++++++++++++++++++")
+        
+        
+        
+        
     }
     
     
-    func setupTextField()-> UITextField{
-        let _textField: UITextField = {
-            let textField = UITextField()
-            textField.backgroundColor = UIColor.greyOrange
-            textField.clearsOnBeginEditing = true
-            let textAttributes: [NSAttributedString.Key: Any] = [
-                NSAttributedString.Key.strokeColor : UIColor.white,
-                NSAttributedString.Key.foregroundColor : UIColor.white,
-                NSAttributedString.Key.font: UIFont(name: "Georgia", size: customFontSize) as Any
-            ]
-            textField.defaultTextAttributes = textAttributes
-            textField.attributedText = NSMutableAttributedString(string: "Password", attributes: textAttributes)
-            textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-            return textField
-        }()
-        return _textField
-    }
     
     
+    
+    //MARK:- UI Type Definitions
     func setupTextField(placeholder: String, size: CGFloat)-> UITextField{
         let _textField: UITextField = {
             let textField = UITextField()
@@ -86,25 +85,6 @@ class LoginController: UIViewController {
                 NSAttributedString.Key.strokeColor : UIColor.white,
                 NSAttributedString.Key.foregroundColor : UIColor.white,
                 NSAttributedString.Key.font: UIFont(name: "Georgia", size: size) as Any
-            ]
-            textField.defaultTextAttributes = textAttributes
-            textField.attributedText = NSMutableAttributedString(string: placeholder, attributes: textAttributes)
-            textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-            return textField
-        }()
-        return _textField
-    }
-    
-    
-    func setupTextField(placeholder: String)-> UITextField{
-        let _textField: UITextField = {
-            let textField = UITextField()
-            textField.backgroundColor = UIColor.greyOrange
-            textField.clearsOnBeginEditing = true
-            let textAttributes: [NSAttributedString.Key: Any] = [
-                NSAttributedString.Key.strokeColor : UIColor.white,
-                NSAttributedString.Key.foregroundColor : UIColor.white,
-                NSAttributedString.Key.font: UIFont(name: "Georgia", size: customFontSize) as Any
             ]
             textField.defaultTextAttributes = textAttributes
             textField.attributedText = NSMutableAttributedString(string: placeholder, attributes: textAttributes)
